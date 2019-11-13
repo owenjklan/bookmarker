@@ -40,5 +40,7 @@ class BookmarkCommand(sublime_plugin.TextCommand):
 
 class ListBookmarksCommand(sublime_plugin.TextCommand):
     def run(self, edit):
-        bookmark_list = ["{}:{}".format(bm.start_pos, bm.content) for bm in bookmarks]
+        for bm in bookmarks:
+            print(bm.view_id, bm.tab_name, bm.start_pos)
+        bookmark_list = ["{}:{}".format(bm.start_pos, bm.content) for bm in bookmarks if bm.view_id == self.view.id()]
         self.view.window().show_quick_panel(bookmark_list, on_navigate)
